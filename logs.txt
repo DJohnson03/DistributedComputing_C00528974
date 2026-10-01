@@ -1,1 +1,143 @@
+$ date
+Thu Oct  1 16:41:01 UTC 2026
+
+$ uname -a
+Linux ip-172-31-15-208 6.17.0-1017-aws #17~24.04.1-Ubuntu SMP Tue May 26 21:30:32 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+
+$ whoami
+ubuntu
+
+$ pwd
+/home/ubuntu/DistributedComputing_C00528974
+
+$ mkdir -p /home/ubuntu/practice
+
+$ cp /etc/hostname /home/ubuntu/practice/file1.txt
+
+$ cat /home/ubuntu/practice/file1.txt
+ip-172-31-15-208
+
+$ ls -l /home/ubuntu/practice
+total 8
+-rw-r--r-- 1 ubuntu ubuntu 17 Oct  1 16:41 file1.txt
+-rw------- 1 ubuntu ubuntu 17 Oct  1 16:39 moved.txt
+
+$ mv /home/ubuntu/practice/file1.txt /home/ubuntu/practice/moved.txt
+
+$ ls -l /home/ubuntu/practice
+total 4
+-rw-r--r-- 1 ubuntu ubuntu 17 Oct  1 16:41 moved.txt
+
+$ chmod 600 /home/ubuntu/practice/moved.txt
+
+$ sudo chown ubuntu:ubuntu /home/ubuntu/practice/moved.txt
+
+$ ls -l /home/ubuntu/practice
+total 4
+-rw------- 1 ubuntu ubuntu 17 Oct  1 16:41 moved.txt
+
+$ head -n 5 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+
+$ tail -n 5 /etc/passwd
+fwupd-refresh:x:990:990:Firmware update daemon:/var/lib/fwupd:/usr/sbin/nologin
+polkitd:x:989:989:User for polkitd:/:/usr/sbin/nologin
+ec2-instance-connect:x:109:65534::/nonexistent:/usr/sbin/nologin
+_chrony:x:110:112:Chrony daemon,,,:/var/lib/chrony:/usr/sbin/nologin
+ubuntu:x:1000:1000:Ubuntu:/home/ubuntu:/bin/bash
+
+$ tar -czvf /home/ubuntu/practice.tar.gz -C /home/ubuntu practice
+practice/
+practice/moved.txt
+
+$ df -h
+Filesystem       Size  Used Avail Use% Mounted on
+/dev/root        6.8G  2.7G  4.1G  41% /
+tmpfs            456M     0  456M   0% /dev/shm
+tmpfs            183M  896K  182M   1% /run
+tmpfs            5.0M     0  5.0M   0% /run/lock
+efivarfs         128K  3.1K  120K   3% /sys/firmware/efi/efivars
+/dev/nvme0n1p16  881M  183M  637M  23% /boot
+/dev/nvme0n1p15  105M  6.2M   99M   6% /boot/efi
+tmpfs             92M   12K   92M   1% /run/user/1000
+
+$ du -sh /home/ubuntu/practice
+8.0K	/home/ubuntu/practice
+
+$ ping -c 3 google.com
+PING google.com (142.251.210.110) 56(84) bytes of data.
+64 bytes from ncorda-ak-in-f14.1e100.net (142.251.210.110): icmp_seq=1 ttl=117 time=9.46 ms
+64 bytes from ncorda-ak-in-f14.1e100.net (142.251.210.110): icmp_seq=2 ttl=117 time=9.44 ms
+64 bytes from ncorda-ak-in-f14.1e100.net (142.251.210.110): icmp_seq=3 ttl=117 time=9.63 ms
+
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 9.444/9.510/9.631/0.085 ms
+
+$ host google.com
+google.com has address 142.251.210.110
+google.com has IPv6 address 2607:f8b0:4009:813::200e
+google.com mail is handled by 10 smtp.google.com.
+
+$ dig +short google.com
+142.251.210.110
+
+$ wget -q -O /home/ubuntu/practice/index.html https://example.com
+
+$ ls -l /home/ubuntu/practice
+total 8
+-rw-rw-r-- 1 ubuntu ubuntu 713 Sep 28 16:19 index.html
+-rw------- 1 ubuntu ubuntu  17 Oct  1 16:41 moved.txt
+
+$ rm /home/ubuntu/practice/index.html
+
+$ ifconfig
+ens5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 172.31.15.208  netmask 255.255.240.0  broadcast 172.31.15.255
+        inet6 fe80::ff:fcff:fe9e:8537  prefixlen 64  scopeid 0x20<link>
+        ether 02:ff:fc:9e:85:37  txqueuelen 1000  (Ethernet)
+        RX packets 455732  bytes 563375368 (563.3 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 98425  bytes 9186665 (9.1 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 2340  bytes 260810 (260.8 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2340  bytes 260810 (260.8 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+$ ps -u ubuntu
+    PID TTY          TIME CMD
+  55109 ?        00:00:00 systemd
+  55112 ?        00:00:00 (sd-pam)
+  55221 ?        00:00:01 sshd
+  55224 pts/0    00:00:00 bash
+  55860 pts/0    00:00:00 ps
+  55861 pts/0    00:00:00 tee
+
+$ bash -c top -b -n 1 | head -15
+top - 16:41:04 up 5 days, 13:12,  1 user,  load average: 0.00, 0.00, 0.00
+Tasks: 114 total,   1 running, 113 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :    911.3 total,    185.1 free,    392.7 used,    511.1 buff/cache     
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    518.5 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+      1 root      20   0   22692  13528   9324 S   0.0   1.4   0:25.90 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.08 kthreadd
+      3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_wo+
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
 
